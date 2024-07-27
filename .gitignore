@@ -4,7 +4,7 @@ echo "# Binaries for programs and plugins
 *.dll
 *.so
 *.dylib
-
+*.env
 # Test binary, built with 'go test -c'
 *.test
 
