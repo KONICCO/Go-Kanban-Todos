@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/KONICCO/go-industrious-boilerplate/internal/config"
 	"github.com/KONICCO/go-industrious-boilerplate/internal/handler"
@@ -17,9 +18,14 @@ func Run() error {
 	cfg := config.New()
 
 	// Initialize PostgreSQL connection
-	dbInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
-		cfg.Database.Host, cfg.Database.Port, cfg.Database.User, cfg.Database.Password, cfg.Database.DBName)
-	db, err := sql.Open("postgres", dbInfo)
+	// dbInfo := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
+	// 	cfg.Database.Host, cfg.Database.Port, cfg.Database.User, cfg.Database.Password, cfg.Database.DBName)
+
+	dbURL := os.Getenv("DATABASE_URL")
+	if dbURL == "" {
+		log.Fatal("DATABASE_URL is not set")
+	}
+	db, err := sql.Open("postgres", dbURL)
 	if err != nil {
 		return fmt.Errorf("failed to connect to database: %w", err)
 	}
