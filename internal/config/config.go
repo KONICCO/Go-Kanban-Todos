@@ -1,10 +1,7 @@
 package config
 
 import (
-	"log"
 	"os"
-
-	"github.com/joho/godotenv"
 )
 
 type Config struct {
@@ -22,10 +19,10 @@ type ServerConfig struct {
 
 func New() *Config {
 	// Load .env file
-	err := godotenv.Load("../.env")
-	if err != nil {
-		log.Fatalf("Error loading .env file %v", err)
-	}
+	// err := godotenv.Load("../.env")
+	// if err != nil {
+	// 	log.Fatalf("Error loading .env file %v", err)
+	// }
 	db := os.Getenv("DATABASE_URL")
 	print(db)
 	return &Config{
