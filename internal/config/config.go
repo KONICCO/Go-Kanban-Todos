@@ -18,20 +18,18 @@ type ServerConfig struct {
 }
 
 func New() *Config {
-	// Load .env file
-	// err := godotenv.Load("../.env")
-	// if err != nil {
-	// 	log.Fatalf("Error loading .env file %v", err)
-	// }
 	db := os.Getenv("DATABASE_URL")
-	print(db)
-	return &Config{
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
 
+	return &Config{
 		Database: DatabaseConfig{
 			URL: getEnv("DATABASE_URL", db),
 		},
 		Server: ServerConfig{
-			Address: getEnv("PORT", ":8080"),
+			Address: ":" + port,
 		},
 	}
 }
